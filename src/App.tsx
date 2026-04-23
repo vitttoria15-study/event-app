@@ -1,5 +1,6 @@
 import EventList from "./components/EventList";
 import EventDetails from "./components/EventDetails";
+import RegistrationForm from "./components/RegistrationForm";
 import { events } from "./data/mockData";
 import { useState } from "react";
 
@@ -24,6 +25,13 @@ function App() {
     <div>
       <hr />
       <EventDetails event={selectedEvent} />
+    </div>
+    <div>
+      <hr />
+      <RegistrationForm onRegister={ (data) => {
+
+        console.log(data);
+      }} />
     </div>
   </div>)
 }
