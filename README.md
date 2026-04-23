@@ -21,11 +21,11 @@ This project is built to practice React and TypeScript fundamentals by implement
 ## 🚀 Project Improvement Plan
 
 ### 🟢 Level 1 — Basic Improvements
-- [ ] Add basic styling (CSS or Tailwind)
-- [ ] Improve form UX (clear inputs after submit)
-- [ ] Show success message after registration
-- [ ] Disable submit button if inputs are empty
-- [ ] Add simple validation (name/email required)
+- [x] Add basic styling (CSS or Tailwind)
+- [x] Improve form UX (clear inputs after submit)
+- [x] Show success message after registration
+- [x] Disable submit button if inputs are empty
+- [x] Add simple validation (name/email required)
 
 ---
 
@@ -37,7 +37,7 @@ This project is built to practice React and TypeScript fundamentals by implement
 ---
 
 ### 🔵 Level 3 — Advanced Features
-- [ ] Save data to localStorage (persist after refresh)
+- [x] Save data to localStorage (persist after refresh)
 - [ ] Add ability to remove participants
 - [ ] Add search/filter for events
 
