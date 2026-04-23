@@ -9,11 +9,23 @@ const RegistrationForm = ({ onRegister }: Props) => {
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
 
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        if(!fullName || !email) {
+            setError("Please fill in all fields.");
+            setSuccess("");
+            return;
+        }
+        
+        setError("");
+
         onRegister({ fullName, email });
 
+        setSuccess("Registration successful!");
         setEmail("");
         setFullName("");
     };
@@ -36,7 +48,10 @@ const RegistrationForm = ({ onRegister }: Props) => {
                     onChange={ (e) => setEmail(e.target.value) }
                 />
             </div>
-            <button type="submit">Register</button>
+            <button type="submit" disabled={!fullName || !email}>Register</button>
+
+            {error && <p style={{ color: "red"}}>{error}</p>}
+            {success && <p style={{ color: "green"}}>{success}</p>}
         </form>
     );
 };

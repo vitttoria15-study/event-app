@@ -3,14 +3,18 @@ import EventDetails from "./components/EventDetails";
 import RegistrationForm from "./components/RegistrationForm";
 import { events as initialEvents } from "./data/mockData";
 import { useEffect, useState } from "react";
+import type { Event } from "./types";
 
 
 
 function App() {
   const [selectedEventId, setSelectedEventId] = useState<number | null>(null);
-  const [events, setEvents] = useState(initialEvents);
+  const [events, setEvents] = useState<Event[]>(() => {
+    const saved = localStorage.getItem("events");
+    return saved ? (JSON.parse(saved) as Event[]) : initialEvents;
+  });
 
-  const selectedEvent = events.find(e => e.id === selectedEventId) || null;
+  const selectedEvent = events.find((e) => e.id === selectedEventId) || null;
 
 
   const handleRegister = (data: {fullName: string, email: string}) => {
@@ -37,27 +41,27 @@ function App() {
 
   
   useEffect(() => {
-      console.log("Updated events:", events);
+      localStorage.setItem("events", JSON.stringify(events));
     }, [events]);
 
   return(
-  <div> 
-    <div>
+    <div className="container">
       <h1>Event App</h1>
-      <EventList 
-        events={events} 
-        onSelect={setSelectedEventId}
-      />
-    </div>
-    <div>
-      <hr />
-      <EventDetails event={selectedEvent} />
-    </div>
-    <div>
-      <hr />
-      <RegistrationForm onRegister={handleRegister}/>
-    </div>
-  </div>)
+
+      <div className="card">
+        <EventList 
+          events={events} 
+          onSelect={setSelectedEventId}
+        />
+      </div>
+      
+      <div className="card">
+        <EventDetails event={selectedEvent} />
+      </div>
+      <div className="card">
+        <RegistrationForm onRegister={handleRegister}/>
+      </div>
+    </div>)
 }
 
 
