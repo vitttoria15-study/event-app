@@ -1,17 +1,44 @@
 import EventList from "./components/EventList";
 import EventDetails from "./components/EventDetails";
 import RegistrationForm from "./components/RegistrationForm";
-import { events } from "./data/mockData";
-import { useState } from "react";
+import { events as initialEvents } from "./data/mockData";
+import { useEffect, useState } from "react";
 
 
 
 function App() {
   const [selectedEventId, setSelectedEventId] = useState<number | null>(null);
+  const [events, setEvents] = useState(initialEvents);
 
   const selectedEvent = events.find(e => e.id === selectedEventId) || null;
 
-  console.log("Selected event ID:", selectedEventId);
+
+  const handleRegister = (data: {fullName: string, email: string}) => {
+    if (selectedEventId === null) return;
+
+    const newRegistration = {
+      id: Date.now(),
+      fullName: data.fullName,
+      email: data.email,
+    };
+
+    setEvents((prevEvents) => 
+      prevEvents.map(event => event.id === selectedEventId
+        ? {
+          ...event,
+          registrations: [...event.registrations, newRegistration],
+        }
+        : event
+      ));
+
+      console.log(`Registered ${data.fullName} for event ID ${selectedEventId}`);
+      
+  };
+
+  
+  useEffect(() => {
+      console.log("Updated events:", events);
+    }, [events]);
 
   return(
   <div> 
@@ -28,10 +55,7 @@ function App() {
     </div>
     <div>
       <hr />
-      <RegistrationForm onRegister={ (data) => {
-
-        console.log(data);
-      }} />
+      <RegistrationForm onRegister={handleRegister}/>
     </div>
   </div>)
 }

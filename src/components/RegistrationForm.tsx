@@ -13,6 +13,9 @@ const RegistrationForm = ({ onRegister }: Props) => {
         e.preventDefault();
 
         onRegister({ fullName, email });
+
+        setEmail("");
+        setFullName("");
     };
 
     return (
