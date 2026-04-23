@@ -13,6 +13,18 @@ const EventDetails = ({event}: Props) => {
                 <h2>{event.title}</h2>
                 <p>{event.description}</p>
                 <p>Date: {event.date}</p>
+
+                <h3>Participants:</h3>
+                {event.registrations.length === 0 
+                ? (<p>No participants registered.</p>)
+                : (
+                    <ul>
+                        {event.registrations.map((reg) => (
+                            <li key={reg.id}>{reg.fullName} ({reg.email})</li>
+                        ))}
+                    </ul>
+                )
+            }
             </div>
 };
 
